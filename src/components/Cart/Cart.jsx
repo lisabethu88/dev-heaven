@@ -73,13 +73,13 @@ const Cart = ({
             color="primary"
             sx={{
               fontFamily: "Lexend",
-              backgroundColor: "#5B613B",
-              color: "#f0fccb",
+              backgroundColor: "#39b027",
+              color: "#c7ffa7",
               "&:hover": {
                 // transform: "scale(1.05)",
                 // transition: "all 0.3s ease-in-out",              fontFamily: "Lexend",
-                color: "#5B613B",
-                backgroundColor: "#f0fccb",
+                backgroundColor: "#c7ffa7",
+                color: "#39b027",
                 // transition: "all 0.3s ease-in-out",
               },
             }}
@@ -91,13 +91,6 @@ const Cart = ({
     </>
   );
 
-  if (!cart.line_items)
-    return (
-      <Container>
-        <Toolbar />
-        <Loading />
-      </Container>
-    );
   return (
     <Container>
       {/* Toolbar */}
@@ -112,7 +105,13 @@ const Cart = ({
       >
         Your Shopping Cart
       </Typography>
-      {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+      {!cart.line_items ? (
+        <Loading />
+      ) : cart.line_items.length === 0 ? (
+        <EmptyCart />
+      ) : (
+        <FilledCart />
+      )}
     </Container>
   );
 };

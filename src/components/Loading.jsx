@@ -3,31 +3,19 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 
 const Loading = () => {
   return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "inline-flex",
-        width: "fit-content",
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <CircularProgress variant="indeterminate" size={40} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/* <Typography variant="caption" component="div" color="text.secondary">
-          Loading
-        </Typography> */}
-      </Box>
-    </Box>
+      <CircularProgress />
+      <Typography variant="h6" style={{ marginTop: "20px" }}>
+        Loading...
+      </Typography>
+    </div>
   );
 };
 

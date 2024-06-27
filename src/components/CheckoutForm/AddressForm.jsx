@@ -12,6 +12,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { commerce } from "../../lib/commerce";
 import FormInput from "./CustomTextField";
 import { Link } from "react-router-dom";
+import Loading from "../Loading";
 
 const AddressForm = ({ checkoutToken, next }) => {
   const methods = useForm();
@@ -21,6 +22,7 @@ const AddressForm = ({ checkoutToken, next }) => {
   const [shippingSubdivision, setShippingSubdivision] = useState("");
   const [shippingOptions, setShippingOptions] = useState([]);
   const [shippingOption, setShippingOption] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const countries = Object.entries(shippingCountries).map(([code, name]) => ({
     id: code,
@@ -72,8 +74,12 @@ const AddressForm = ({ checkoutToken, next }) => {
   };
 
   useEffect(() => {
-    fetchShippingCountries(checkoutToken.id);
-  }, []);
+    const fetchData = async () => {
+      await fetchShippingCountries(checkoutToken.id);
+      setIsLoading(false); // Set loading to false after fetching data
+    };
+    fetchData();
+  }, [checkoutToken.id]);
 
   useEffect(() => {
     if (shippingCountry) fetchSubdivisions(shippingCountry);
@@ -87,6 +93,14 @@ const AddressForm = ({ checkoutToken, next }) => {
         shippingSubdivision
       );
   }, [shippingSubdivision]);
+
+  if (isLoading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Loading />
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -142,7 +156,7 @@ const AddressForm = ({ checkoutToken, next }) => {
                 <Select
                   value={shippingOption}
                   fullWidth
-                  onChange={(e) => setShippingCountry(e.target.value)}
+                  onChange={(e) => setShippingOption(e.target.value)}
                 >
                   {options.map((option) => (
                     <MenuItem key={option.id} value={option.id}>

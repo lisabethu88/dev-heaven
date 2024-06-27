@@ -7,6 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Review from "./Review";
+import Loading from "../Loading";
 const stripePromise = loadStripe(`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`);
 
 const PaymentForm = ({
@@ -54,6 +55,10 @@ const PaymentForm = ({
       nextStep();
     }
   };
+
+  if (!stripePromise || !checkoutToken) {
+    return <Loading />;
+  }
   return (
     <>
       <Review checkoutToken={checkoutToken} />

@@ -24,7 +24,6 @@ const StyledCardActions = styled(CardActions)({
 const StyledDiv = styled("div")({
   display: "flex",
   justifyContent: "space-between",
-  height: 55,
 });
 
 export { StyledCard, StyledCardMedia, StyledCardActions, StyledDiv };
